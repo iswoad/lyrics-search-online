@@ -16,9 +16,10 @@ const displaySong = songs =>{
                     <div class="col-md-9">
                         <h3 id="song-name" class="lyrics-name">${song.title}</h3>
                         <p class="author lead">Album by <span>${song.artist.name}</span></p>
+                        
                     </div>
                     <div class="col-md-3 text-md-right text-center">
-                        <button class="btn btn-success">Get Lyrics</button>
+                        <button onclick="getLyrics('${song.title}', '${song.artist.name}')" class="btn btn-success">Get Lyrics</button>
                     </div>
                 
                 `
@@ -27,6 +28,16 @@ const displaySong = songs =>{
     });
 }
 
-const showLyrics = () =>{
-    
+const getLyrics = (title, name) =>{
+    console.log(title, name)
+        // const artistName = data.artist.name;
+        // const title = song.title;
+        fetch(`https://api.lyrics.ovh/v1/:${name}/:${title}`)
+        .then(res => res.json())
+        .then(data => displayLyrics(data.lyrics))
+}
+
+const displayLyrics = (lyrics) => {
+    const lyricsDiv = document.getElementById('lyrics-container');
+    lyricsDiv.innerText = lyrics;
 }

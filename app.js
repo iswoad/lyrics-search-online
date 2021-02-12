@@ -29,10 +29,14 @@ const displaySong = songs =>{
     });
 }
 
-const getLyrics = (title, name) =>{
-        fetch(`https://api.lyrics.ovh/v1/:${name}/:${title}`)
-        .then(res => res.json())
-        .then(data => displayLyrics(data.lyrics))
+const getLyrics = async (title, name) =>{
+        const url = `https://api.lyrics.ovh/v1/:${name}/:${title}`
+        const res = await fetch(url);
+        const data = await json();
+        displayLyrics(data.lyrics)
+        // fetch(`https://api.lyrics.ovh/v1/:${name}/:${title}`)
+        // .then(res => res.json())
+        // .then(data => displayLyrics(data.lyrics))
 }
 
 const displayLyrics = (lyrics) => {
